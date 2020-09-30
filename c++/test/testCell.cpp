@@ -2,7 +2,7 @@
 #include <sudokuCell.h>
 
 TEST(CellTest, TestNumberOne){
-  SudokuCell c;
+  SudokuCell c(9);
   EXPECT_NE(2, 1);
 }
 

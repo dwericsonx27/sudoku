@@ -1,6 +1,7 @@
 #include <set>
 
 #include "sudokuCell.h"
+#include "perfect.h"
 
 SudokuCell::SudokuCell(int maxValue)
 {
