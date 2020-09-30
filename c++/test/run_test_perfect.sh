@@ -1,0 +1,2 @@
+g++ -pthread testPerfect.cpp ../cpp/perfect.cpp -I ../header /usr/local/lib/libgtest.a /usr/local/lib/libgtest_main.a
+./a.out
