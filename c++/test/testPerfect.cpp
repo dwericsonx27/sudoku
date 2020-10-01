@@ -19,8 +19,19 @@ TEST(PerfectTest, TestIntSquareRoot) {
 }
 
 TEST(PerfectTest, TestPerfectSquare){
-  ASSERT_TRUE(isPerfectSquare(9));
-  ASSERT_FALSE(isPerfectSquare(8));
+  ASSERT_TRUE(isPerfectSquare(4));
+  ASSERT_FALSE(isPerfectSquare(3));
+  ASSERT_FALSE(isPerfectSquare(7));
+  try {
+    ASSERT_FALSE(isPerfectSquare(-7));
+  }
+  catch(std::out_of_range const & err) {
+    EXPECT_EQ(err.what(),std::string("Out of range"));
+  }
+  catch(...) {
+    FAIL() << "Expected std::out_of_range";
+  }
+  ASSERT_TRUE(isPerfectSquare(1));
 }
 
 int main(int argc, char **argv) {
