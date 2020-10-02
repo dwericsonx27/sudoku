@@ -33,6 +33,25 @@ TEST(CellTest, TestValuePersisted){
   ASSERT_EQ(c.getValue(), 1);
 }
 
+TEST(CellTest, TestAllCandidates){
+  SudokuCell c(9);
+  const std::set<int>& candidates = c.getCandidates();
+  ASSERT_EQ(candidates.size(), 9);
+}
+
+TEST(CellTest, TestRemoveCandidates){
+  SudokuCell c(9);
+  c.eliminatePossibilities({ 1, 2, 3 });
+  const std::set<int>& candidates = c.getCandidates();
+  ASSERT_EQ(candidates.size(), 6);
+}
+
+TEST(CellTest, TestNoCandidates){
+  SudokuCell c(9);
+  c.setValue(1);
+  const std::set<int>& candidates = c.getCandidates();
+  ASSERT_EQ(candidates.size(), 0);
+}
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

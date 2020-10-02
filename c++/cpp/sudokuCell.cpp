@@ -1,9 +1,9 @@
 #include <set>
 #include <iostream>
+#include <stdexcept>
 
 #include "sudokuCell.h"
 #include "perfect.h"
-#include <stdexcept>
 
 SudokuCell::SudokuCell(int maxValue)
 {
@@ -37,7 +37,6 @@ void SudokuCell::setValue(int value)
 
 void SudokuCell::setMaxValue(int value)
 {
-  std::cerr << "setMaxValue(" << value << ")" << std::endl;
   if (isPerfectSquare(value))
   {
     m_maxValue = value;
@@ -48,15 +47,36 @@ void SudokuCell::setMaxValue(int value)
 
 }
 
+void SudokuCell::eliminatePossibilities(const std::set<int>& eliminated)
+{
+  // Remove the specified candidates.
+  for (auto it : eliminated)
+  {
+    m_candidateValues.erase(it);
+  }
+
+  // When there are no candidates left directly after eliminating candidates,
+  // there is a logic error since 1 candidate must be left.
+  if (m_candidateValues.size() == 0)
+  {
+    throw std::runtime_error("Eliminated all possiblities, at least one must be left.");
+  }
+
+  // When 1 candidate is left, set the cell value and empty the candidate list.
+  if (m_candidateValues.size() == 1)
+  {
+    auto it = m_candidateValues.begin();
+    m_value = *it;
+    m_candidateValues.clear();
+  }
+}
+
 int SudokuCell::getValue() const
 {
     return m_value;
 }
 
-void SudokuCell::eliminatePossiblies(const std::set<int>& eliminated)
+const std::set<int>& SudokuCell::getCandidates() const
 {
-  for (auto it : eliminated)
-  {
-    m_candidateValues.erase(it);
-  }
+  return m_candidateValues;
 }

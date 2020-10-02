@@ -9,8 +9,9 @@ class SudokuCell : public Cell {
         SudokuCell(int value);
         void setValue(int value);
 	void setMaxValue(int value);
-        void eliminatePossiblies(const std::set<int>& eliminated);
+        void eliminatePossibilities(const std::set<int>& eliminated);
         int getValue() const;
+        const std::set<int>& getCandidates() const;
     private:
         int m_maxValue;
         int m_value;
